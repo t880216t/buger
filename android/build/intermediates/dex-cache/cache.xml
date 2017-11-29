@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="C:\Users\chenjian0112\.gradle\caches\modules-2\files-2.1\com.facebook.fbui.textlayoutbuilder\staticlayout-proxy\1.0\f162442a19fff13995fbd51ba414d9ee05579080\staticlayout-proxy-1.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="f162442a19fff13995fbd51ba414d9ee05579080">
+        <dex dex="D:\react\new_buger\android\app\build\intermediates\pre-dexed\release\staticlayout-proxy-1.0_1ada0198f967e2d2045d449ee44eedb7cf5b9263.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\react\new_buger\android\app\build\intermediates\exploded-aar\com.facebook.fresco\imagepipeline\1.3.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="48c7f54c2515a2312d3a4481d10c43fbb807f3af">
+        <dex dex="D:\react\new_buger\android\app\build\intermediates\pre-dexed\release\com.facebook.fresco-imagepipeline-1.3.0_0daae45157a0d206a18cc0a3d7735bdbf2c11155.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\react\new_buger\android\app\build\intermediates\exploded-aar\com.android.support\support-fragment\25.2.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="8fe8a8f77d651982ce5e18f6187dc4daf914ac57">
+        <dex dex="D:\react\new_buger\android\app\build\intermediates\pre-dexed\release\com.android.support-support-fragment-25.2.0_8cbdd9b1ed305a7ec590685f01a8620f87cb6715.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\react\new_buger\android\app\build\intermediates\exploded-aar\wawo\react-native-image-picker\unspecified\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="ad3c33c320b4d0b7504e97aa46a185dea8bd1f1c">
+        <dex dex="D:\react\new_buger\android\app\build\intermediates\pre-dexed\release\wawo-react-native-image-picker-unspecified_9f6129fb7dd879282a612ef3782a2548e5e2d6f2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\react\new_buger\android\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-iid\11.0.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="8e5edad98e4113971e515a8d9fe89d6f95235fa9">
+        <dex dex="D:\react\new_buger\android\app\build\intermediates\pre-dexed\release\com.google.android.gms-play-services-iid-11.0.1_0153d0a48dc9a6e27e5fdf144d18b7a102a742e0.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\chenjian0112\.gradle\caches\modules-2\files-2.1\com.parse.bolts\bolts-tasks\1.4.0\d85884acf6810a3bbbecb587f239005cbc846dc4\bolts-tasks-1.4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="d85884acf6810a3bbbecb587f239005cbc846dc4">
+        <dex dex="D:\react\new_buger\android\app\build\intermediates\pre-dexed\release\bolts-tasks-1.4.0_6cf449b2e91665183e723e60a928742aa8ffe0cc.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\react\new_buger\android\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\25.2.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="e820b7be8c035dd522da4bc822e8a76c8e27921a">
+        <dex dex="D:\react\new_buger\android\app\build\intermediates\pre-dexed\release\com.android.support-support-core-utils-25.2.0_d69923efad5da2a5aaa1069bcc0cd33fc7cbb198.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\react\new_buger\android\app\build\intermediates\exploded-aar\com.facebook.react\react-native\0.48.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="9dfdc1614e402edaf52eaa5e5d8d38ac6f12cf0e">
+        <dex dex="D:\react\new_buger\android\app\build\intermediates\pre-dexed\release\com.facebook.react-react-native-0.48.0_3a079bcdc8caffed3a791506cf9bb7515ef8633b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\chenjian0112\.gradle\caches\modules-2\files-2.1\com.google.code.findbugs\jsr305\3.0.0\5871fb60dc68d67da54a663c3fd636a10a532948\jsr305-3.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="5871fb60dc68d67da54a663c3fd636a10a532948">
+        <dex dex="D:\react\new_buger\android\app\build\intermediates\pre-dexed\release\jsr305-3.0.0_5d06322347a9af677202f212bf4e71fb2605a43c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\react\new_buger\android\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\25.2.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="fa0446a14ed5dd3725047d6399ffea771a564b30">
+        <dex dex="D:\react\new_buger\android\app\build\intermediates\pre-dexed\release\com.android.support-support-core-ui-25.2.0_c0dee77150ec32047aa4714011c3edbbf038a9ae.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\react\new_buger\android\app\build\intermediates\exploded-aar\com.facebook.fbui.textlayoutbuilder\textlayoutbuilder\1.0.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="f90b593491e4044903f0bbf68dc3fa2790b151b9">
+        <dex dex="D:\react\new_buger\android\app\build\intermediates\pre-dexed\release\com.facebook.fbui.textlayoutbuilder-textlayoutbuilder-1.0.0_38693120ac78c8cb509a6db867c77a0c327dc86a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\chenjian0112\.m2\repository\javax\inject\javax.inject\1\javax.inject-1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="6975da39a7040257bd51d21a231b76c915872d38">
+        <dex dex="D:\react\new_buger\android\app\build\intermediates\pre-dexed\release\javax.inject-1_37a431da6599c5dfea616f166299cf02019f0d25.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\react\new_buger\android\app\build\intermediates\exploded-aar\com.facebook.react\react-native\0.48.0\jars\libs\infer-annotations-4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="9809e90be788acdb479b2b44e2112f3295a03068">
+        <dex dex="D:\react\new_buger\android\app\build\intermediates\pre-dexed\release\infer-annotations-4.0_ba39a67935296b963355f6fb65979b087a33df90.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\react\new_buger\android\app\build\intermediates\exploded-aar\com.facebook.fresco\imagepipeline-base\1.3.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="72128af126ddd7d6252da9357fe560d3abcdfb0c">
+        <dex dex="D:\react\new_buger\android\app\build\intermediates\pre-dexed\release\com.facebook.fresco-imagepipeline-base-1.3.0_19a226338a1f676ccc093ef45075eee5d0a2ca49.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\react\new_buger\android\app\build\intermediates\exploded-aar\com.facebook.fresco\fresco\1.3.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="fe85b87215e405f5917d40ae4960488ac9224b74">
+        <dex dex="D:\react\new_buger\android\app\build\intermediates\pre-dexed\release\com.facebook.fresco-fresco-1.3.0_ccf5a4315b90c7f8efe2c3e1084783fc15667877.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\chenjian0112\.gradle\caches\modules-2\files-2.1\com.squareup.okhttp3\okhttp-urlconnection\3.6.0\3f9b16b774f2c36cfd86dd2053d0b3059531dacc\okhttp-urlconnection-3.6.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="3f9b16b774f2c36cfd86dd2053d0b3059531dacc">
+        <dex dex="D:\react\new_buger\android\app\build\intermediates\pre-dexed\release\okhttp-urlconnection-3.6.0_6a3cf14b8f6bdf293c5b6a0cbd2092fd553af67d.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\react\new_buger\android\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-tasks\11.0.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="21160c044ba984fb2e33b833c89a496becb85cfd">
+        <dex dex="D:\react\new_buger\android\app\build\intermediates\pre-dexed\release\com.google.android.gms-play-services-tasks-11.0.1_a4a4f237d546d0601500695d1f573aacfb6c81a0.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\react\new_buger\android\app\build\intermediates\exploded-aar\com.facebook.fresco\fbcore\1.3.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="37345de2ed2772f385eaeec37a9c2ff0fea99ad7">
+        <dex dex="D:\react\new_buger\android\app\build\intermediates\pre-dexed\release\com.facebook.fresco-fbcore-1.3.0_fb8fce08ec08d672e3c2c86478d99b210597866f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\react\new_buger\android\app\build\intermediates\exploded-aar\com.android.support\support-compat\25.2.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="67eb33110dbacb46a48175b08ae0c96761d2c17d">
+        <dex dex="D:\react\new_buger\android\app\build\intermediates\pre-dexed\release\com.android.support-support-compat-25.2.0_f60907a72e6821d90f7cfd1bdf56d00d84d08830.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\chenjian0112\.gradle\caches\modules-2\files-2.1\com.squareup.okio\okio\1.13.0\a9283170b7305c8d92d25aff02a6ab7e45d06cbe\okio-1.13.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="a9283170b7305c8d92d25aff02a6ab7e45d06cbe">
+        <dex dex="D:\react\new_buger\android\app\build\intermediates\pre-dexed\release\okio-1.13.0_c4c3de55d0630bcb0d120bbd2e71f6851c4c069b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\react\new_buger\android\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-gcm\11.0.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="7057b89327260d70337f4913f933c78bb56ecd69">
+        <dex dex="D:\react\new_buger\android\app\build\intermediates\pre-dexed\release\com.google.android.gms-play-services-gcm-11.0.1_46926b60ba191a918dd8cded05368a574b259747.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\react\new_buger\android\app\build\intermediates\exploded-aar\com.android.support\support-v4\25.2.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="D:\react\new_buger\android\app\build\intermediates\pre-dexed\release\com.android.support-support-v4-25.2.0_cdf19d7d20ceeef9301888c77798a25c2e54bb02.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\react\new_buger\android\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\25.2.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="ee394a892dd21c03a528139c1e8d4e0e1264ac84">
+        <dex dex="D:\react\new_buger\android\app\build\intermediates\pre-dexed\release\com.android.support-support-media-compat-25.2.0_80f74e647ee726bfb23fc3b691ee6fe747d438b5.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\react\new_buger\android\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\11.0.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="6178e31397c24ab1bfc09766832cdcf519621eb7">
+        <dex dex="D:\react\new_buger\android\app\build\intermediates\pre-dexed\release\com.google.android.gms-play-services-basement-11.0.1_20e1b7914e4175445faf339172824b1fd541eddc.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\chenjian0112\.gradle\caches\modules-2\files-2.1\com.squareup.okhttp3\okhttp\3.6.0\69edde9fc4b01c9fd51d25b83428837478c27254\okhttp-3.6.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="69edde9fc4b01c9fd51d25b83428837478c27254">
+        <dex dex="D:\react\new_buger\android\app\build\intermediates\pre-dexed\release\okhttp-3.6.0_daa4f8ae79c188dba979b38a5d33c1559c385473.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\react\new_buger\android\app\build\intermediates\exploded-aar\com.facebook.fresco\imagepipeline-okhttp3\1.3.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="c03c08c9934b23c8c09c803345ec51a74119127b">
+        <dex dex="D:\react\new_buger\android\app\build\intermediates\pre-dexed\release\com.facebook.fresco-imagepipeline-okhttp3-1.3.0_87ed708d3ed826601c2f62380ac6bdb51b8801cd.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\react\new_buger\android\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\11.0.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="d695dc4247690369d66c022c6d18190155c61fcd">
+        <dex dex="D:\react\new_buger\android\app\build\intermediates\pre-dexed\release\com.google.android.gms-play-services-base-11.0.1_7e7781bf2c6a4ba8f30e2279cfcf134388d1fc3e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\react\new_buger\android\app\build\intermediates\exploded-aar\com.facebook.fresco\drawee\1.3.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="c65a2e39d54023bac3aef64a2f0cff89289c7ff6">
+        <dex dex="D:\react\new_buger\android\app\build\intermediates\pre-dexed\release\com.facebook.fresco-drawee-1.3.0_3046b7b319c3cc19f77f6da2a052587a5b842e3b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\react\new_buger\android\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.0.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="d86429b0f0b3f3cafbeb78dda1b9d89119ccb05d">
+        <dex dex="D:\react\new_buger\android\app\build\intermediates\pre-dexed\release\com.android.support-appcompat-v7-23.0.1_41a13d4822fa026d2284d012bcaef47c5a1237d5.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\react\new_buger\android\app\build\intermediates\exploded-aar\wawo\react-native-device-info\unspecified\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="1e1a863e7c4255b67cd4cd9def2e3bea63baa9d6">
+        <dex dex="D:\react\new_buger\android\app\build\intermediates\pre-dexed\release\wawo-react-native-device-info-unspecified_0dbee9c97711742aa4f6f3e3c886112a21136846.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\react\new_buger\android\app\build\intermediates\exploded-aar\com.facebook.soloader\soloader\0.1.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="8f615bca00639150c9eb6175d4b5471193f70794">
+        <dex dex="D:\react\new_buger\android\app\build\intermediates\pre-dexed\release\com.facebook.soloader-soloader-0.1.0_97d27ec83deee9803ef007ccea14c24da7e36ccc.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\Tool_system\AS-SDK\extras\android\m2repository\com\android\support\support-annotations\25.2.0\support-annotations-25.2.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.1"
+        sha1="4a5a82a027706397fff621b22fd6fa796e91d7c5">
+        <dex dex="D:\react\new_buger\android\app\build\intermediates\pre-dexed\release\support-annotations-25.2.0_b9b22dc470d6b8090c85c28129a9679007f84d8d.jar" />
+    </item>
+
+</items>

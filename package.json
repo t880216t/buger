@@ -1,0 +1,35 @@
+{
+  "name": "wawo",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "ios": "react-native run-ios",
+    "android": "react-native run-android",
+    "test": "jest"
+  },
+  "dependencies": {
+    "antd-mobile": "^1.6.5",
+    "base-64": "^0.1.0",
+    "react": "16.0.0-alpha.12",
+    "react-dom": "^15.6.1",
+    "react-native": "0.48.0",
+    "react-native-busy-indicator": "^1.1.0",
+    "react-native-datepicker": "^1.6.0",
+    "react-native-device-info": "^0.12.1",
+    "react-native-easy-toast": "^1.0.9",
+    "react-native-image-picker": "^0.26.7",
+    "react-native-keyboard-aware-scroll-view": "^0.4.1",
+    "react-navigation": "^1.0.0-beta.11"
+  },
+  "devDependencies": {
+    "babel-jest": "20.0.3",
+    "babel-plugin-import": "^1.4.0",
+    "babel-preset-react-native": "3.0.2",
+    "jest": "20.0.4",
+    "react-test-renderer": "16.0.0-alpha.12"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
