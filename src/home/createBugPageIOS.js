@@ -360,7 +360,6 @@ export default class CreateBugPageIOS extends React.Component{
             .then((response) => {
                 if (response) {
                     var customfields = []
-                    var customfields = []
                     if(response.projects.length === 0){
                         this.refs.toast.show('你没有权力!',DURATION.LENGTH_LONG);
                         return
@@ -378,12 +377,9 @@ export default class CreateBugPageIOS extends React.Component{
                             }
                         }
                     }
-                    if (customfields.length>0){
-                        this.setState({
+                    this.setState({
                             customfields:customfields
                         })
-                    }
-
                 }
             })
             .catch((err)=> {
