@@ -3,7 +3,7 @@
 
 # 运行步骤：
 
-其中react-native-image-picker需要打包时plist做相关权限配置，不知道可看下这里。
+其中react-native-image-picker需要打包时plist做相关权限配置，不知道可看下[这里](https://www.cnblogs.com/shaoting/p/6148085.html)。
 
 ``` bash
 clone this repo &  cd buger
