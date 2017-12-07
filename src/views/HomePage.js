@@ -130,7 +130,7 @@ class _HomePage extends Component {
             headers:headers,
             body:JSON.stringify({
                 "fields":["*all"],
-                "jql":"issuetype in (Bug, 安全漏洞) AND status in (Open, 'In Progress', Reopened, Resolved) AND reporter in (currentUser()) ORDER BY createdDate DESC",
+                "jql":"issuetype in (Bug, 安全漏洞) AND status in (Open, 'In Progress', Reopened, Reopen, Resolved) AND reporter in (currentUser()) ORDER BY createdDate DESC",
                 "startAt":0
             })
         }).then((response) => {
