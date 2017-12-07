@@ -19,6 +19,7 @@ import React,{Component} from 'react';
 import Toast, {DURATION} from 'react-native-easy-toast';
 const BusyIndicator = require('react-native-busy-indicator');
 const loaderHandler = require('react-native-busy-indicator/LoaderHandler');
+import ModalDropdown from 'react-native-modal-dropdown';
 var base64 = require('base-64');
 //保存的key
 var STORAGE_KEY_USERINFO="userinfo";
@@ -40,6 +41,9 @@ export default class HomeDetail extends Component {
             password:"",
             basehost:"",
             messages:[],
+            optionsId:[],
+            optionsName:[],
+            editId:"",
         };
     }
 
@@ -51,6 +55,45 @@ export default class HomeDetail extends Component {
             bugData:bugData
         })
     }
+
+    //获取可编辑状态
+    getTransitions=()=>{
+        var bugData = this.state.bugData
+        var loginInfo = this.state.username+":"+this.state.password;
+        var baseData = base64.encode(loginInfo);
+        var url= this.state.basehost +'/rest/api/latest/issue/'+bugData.key+'/transitions';
+        const headers=new Headers({"Content-Type":"application/json","Authorization":"Basic "+baseData});
+        fetch(url,{
+            method: 'get',
+            headers:headers,
+        }).then((response) => {
+            if (response.ok) {
+                return response.json()
+            } else {
+                this.toastCommon('服务器繁忙，请稍后再试!')
+            }
+        }).then((response) => {
+                if (response) {
+                    var transitions = response.transitions
+                    var optionsName = []
+                    var optionsId = []
+                    transitions.map((item)=>{
+                        optionsId.push(item.id)
+                        optionsName.push(item.name)
+                    })
+                    this.setState({
+                        optionsId:optionsId,
+                        optionsName:optionsName
+                    })
+                } else {
+                    this.toastCommon('err:'+response)
+                }
+            }).catch(()=> {
+            this.toastCommon("服务器繁忙，请稍后再试!")
+        })
+            .done();
+    }
+
 
     //吐司
     toastCommon = (message) =>{
@@ -72,14 +115,16 @@ export default class HomeDetail extends Component {
                     username:value,
                     password:password,
                     basehost:basehost,
-                },()=>{this.fetchBugData()});
+                },()=>{
+                    this.getTransitions()
+                });
             }
         }catch(error){
             this.setState({messages:this.state.messages.concat('AsyncStorage错误'+error.message)},()=>{console.log(this.state.messages)});
         }
     }
 
-    fetchTested=(navigate)=>{
+    fetchTested=()=>{
         var bugData = this.state.bugData
         //置状态
         loaderHandler.showLoader("正在提交....");
@@ -92,7 +137,7 @@ export default class HomeDetail extends Component {
             headers:headers,
             body:JSON.stringify({
                 "transition": {
-                    "id": "31"
+                    "id": this.state.editId.toString()
                 },
                 "update": {},
                 "fields": {}
@@ -100,7 +145,7 @@ export default class HomeDetail extends Component {
         }).then((response) => {
             loaderHandler.hideLoader();
             if (response.ok) {
-                navigate('HomePage')
+                this.props.navigation.navigate('HomePage')
             } else {
                 this.toastCommon('服务器繁忙，请稍后再试!')
             }
@@ -111,7 +156,7 @@ export default class HomeDetail extends Component {
             .done();
     }
 
-    handlerTested=(e,navigate)=>{
+    handlerTested=()=>{
         try{
             var clicktag = 0;
             if (clicktag == 0) {
@@ -120,7 +165,7 @@ export default class HomeDetail extends Component {
                     {text:'取消',onPress:()=>{return}},
 
                     {text:'确定',onPress:()=>{
-                        this.fetchTested(navigate)
+                        this.fetchTested()
                     }}
                 ]);
                 setTimeout(()=>{ clicktag = 0 }, 5000);
@@ -132,8 +177,15 @@ export default class HomeDetail extends Component {
         }
     }
 
-
-
+    setTransitionId=(index)=>{
+        var optionsId = this.state.optionsId
+        this.setState({
+            editId:optionsId[index]
+        },()=>{
+            console.log('editId:',this.state.editId);
+            this.handlerTested()
+        })
+    }
     render() {
         const { navigate } = this.props.navigation;
         const {params} = this.props.navigation.state;
@@ -142,20 +194,24 @@ export default class HomeDetail extends Component {
             <View style={{flex:1,backgroundColor: '#63B8FF',}}>
                 <StatusBar backgroundColor='#63B8FF'></StatusBar>
                 <View style={{backgroundColor:'#63B8FF',marginTop: Platform.OS === 'android' ? 0 : 20,}}>
-                    {bugData.fields.status.id == 5?
+                {bugData.fields.status.id == 5?
                     <View
-                        style={{padding: 15,marginLeft:10,justifyContent: 'center',alignItems: 'center',flexDirection:'row'}}>
+                    style={{padding: 15,marginLeft:10,justifyContent: 'center',alignItems: 'center',flexDirection:'row'}}>
                         <TouchableOpacity onPress={()=>{this.props.navigation.goBack()}}
                                           style={{alignItems:'flex-start',flex:2,}}>
                             <Image source={require('../image/back.png')} style={{width:25,height:25}}/>
                         </TouchableOpacity>
                         <Text style={{fontSize:17,flex:2,textAlign:'center',marginRight:30,fontWeight:'bold'}}>缺陷详情</Text>
-                        <TouchableOpacity onPress={(e)=>{this.handlerTested(e,navigate)}}
-                                          style={{alignItems:'flex-end',flex:2,}}>
-                            <Text style={{fontSize:15,color:'#00FF00',textAlign:'center',fontWeight:'bold'}}>测试通过</Text>
-                        </TouchableOpacity>
+                        <ModalDropdown
+                            options={this.state.optionsName}
+                            textStyle={{fontSize: 15,color: 'blue'}}
+                            style={{borderRadius: 3,justifyContent:'center',width: 80,alignItems: 'center'}}
+                            dropdownTextStyle={{fontSize:14}}
+                            defaultValue="操作"
+                            onSelect={(index)=>{this.setTransitionId(index)}}
+                        />
                     </View>
-                        :
+                    :
                     <View
                         style={{padding: 15,marginLeft:10,justifyContent: 'center',alignItems: 'center',flexDirection:'row'}}>
                         <TouchableOpacity onPress={()=>{this.props.navigation.goBack()}}
