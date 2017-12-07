@@ -20,6 +20,7 @@
     "react-native-easy-toast": "^1.0.9",
     "react-native-image-picker": "^0.26.7",
     "react-native-keyboard-aware-scroll-view": "^0.4.1",
+    "react-native-modal-dropdown": "^0.5.0",
     "react-navigation": "^1.0.0-beta.11"
   },
   "devDependencies": {
