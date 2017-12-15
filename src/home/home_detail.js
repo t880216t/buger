@@ -232,7 +232,9 @@ export default class HomeDetail extends Component {
                     </View>
                     {bugData.fields.attachment.map((item)=>{
                         var contentName = item.content.indexOf('jpg')
-                        if(contentName > 0){
+                        var pngcontentName = item.content.indexOf('png')
+                        var _pngcontentName = item.content.indexOf('PNG')
+                        if(contentName > 0||pngcontentName>0||_pngcontentName>0)
                             return(
                                 <View style={{padding: 15,backgroundColor:'#fff'}}>
                                     <Image source={{uri:item.content}}
