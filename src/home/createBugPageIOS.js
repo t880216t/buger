@@ -47,7 +47,7 @@ var photoOptions = {
     cancelButtonTitle:'取消',
     takePhotoButtonTitle:'拍照',
     chooseFromLibraryButtonTitle:'选择相册',
-    quality:0.45,
+    quality:0.2,
     allowsEditing:false,
     noData:false,
     storageOptions: {
@@ -582,6 +582,7 @@ export default class CreateBugPageIOS extends React.Component{
                 }
             })
             .catch((err)=> {
+                loaderHandler.hideLoader();
                 if (Platform.OS === 'ios'){
                     this.refs.toast.show('服务器繁忙，请稍后再试!',DURATION.LENGTH_LONG);
                 }
@@ -627,6 +628,7 @@ export default class CreateBugPageIOS extends React.Component{
                 }
             })
             .catch((err)=> {
+                loaderHandler.hideLoader();
                 if (Platform.OS === 'ios'){
                     this.refs.toast.show('服务器繁忙，请稍后再试!',DURATION.LENGTH_LONG);
                 }
@@ -672,6 +674,7 @@ export default class CreateBugPageIOS extends React.Component{
                 }
             })
             .catch((err)=> {
+                loaderHandler.hideLoader();
                 if (Platform.OS === 'ios'){
                     this.refs.toast.show('服务器繁忙，请稍后再试!',DURATION.LENGTH_LONG);
                 }
