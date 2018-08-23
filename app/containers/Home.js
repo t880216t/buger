@@ -497,8 +497,8 @@ export default class Header extends Component {
         >
           <View>
             <Text style={{textAlign:'center'}}>当前版本v3.0.0</Text>
-            <Text style={{marginTop:10,}}>    感谢使用本应用，如您在使用过程遇到问题或有更多建议，请邮件给<Text style={{color:'blue'}} onPress={()=>Linking.openURL('mailto:562746248@qq.com')}>
-             562746248@qq.com</Text>
+            <Text style={{marginTop:10,}}>    感谢使用本应用，如您在使用过程遇到问题或有更多建议，请邮件给<Text style={{color:'blue'}} onPress={()=>Linking.openURL('mailto:emailaddress@email.com')}>
+              emailaddress@email.com</Text>
               ，我将尽快处理。
             </Text>
             <Text>    如果您愿意，请截图扫描打赏码，给予我鼓励。后续打赏够99$，我将在取得苹果开发者账号后，发布IOS版本。</Text>
