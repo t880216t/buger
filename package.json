@@ -1,0 +1,49 @@
+{
+  "name": "buger",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest",
+    "prettier": "prettier --write --single-quote --no-semi --trailing-comma es5 --print-width 80 \"app/**/*.js\"",
+    "lint": "eslint app",
+    "format": "yarn prettier && yarn lint --fix",
+    "precommit": "yarn format"
+  },
+  "dependencies": {
+    "antd-mobile-rn": "^2.2.1",
+    "base-64": "^0.1.0",
+    "dva-core": "^1.3.0",
+    "react": "^16.4.1",
+    "react-native": "^0.55.4",
+    "react-native-image-gallery": "^2.1.5",
+    "react-native-modal-dropdown": "^0.6.2",
+    "react-native-root-siblings": "^3.1.0",
+    "react-native-root-toast": "^3.0.1",
+    "react-navigation": "^2.5.1",
+    "react-navigation-redux-helpers": "^2.0.2",
+    "react-redux": "^5.0.7"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.2.4",
+    "babel-jest": "^23.0.1",
+    "babel-plugin-import": "^1.8.0",
+    "babel-plugin-transform-decorators-legacy": "^1.3.5",
+    "babel-preset-react-native": "^4.0.0",
+    "eslint": "^5.0.0",
+    "eslint-config-airbnb": "^17.0.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-babel": "^5.1.0",
+    "eslint-plugin-import": "^2.12.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-prettier": "^2.6.1",
+    "eslint-plugin-react": "^7.9.1",
+    "husky": "^0.14.3",
+    "jest": "^23.1.0",
+    "prettier": "^1.13.5",
+    "react-test-renderer": "^16.4.1"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
