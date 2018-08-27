@@ -1,5 +1,5 @@
 /* eslint-disable object-shorthand */
-import {createAction, NavigationActions, Storage} from "../utils"
+import { createAction, Storage } from '../utils'
 import {
   queryBugTransitions,
   queryBugList,
@@ -12,75 +12,91 @@ import {
   querySearchAssignee,
   submitBug,
   submitAttach,
-} from "../services/api"
+} from '../services/api'
 
 export default {
   namespace: 'home',
   state: {
-    issues:[],
-    transitions:[],
-    domain:null,
-    detailItem:{},
-    favouriteList:[],
-    projectList:[],
-    createmeta:{},
-    assigneeList:[],
-    submitBugKey:null,
-    projectData:null,
-    fixVersion:null,
+    issues: [],
+    transitions: [],
+    domain: null,
+    detailItem: {},
+    favouriteList: [],
+    projectList: [],
+    createmeta: {},
+    assigneeList: [],
+    submitBugKey: null,
+    projectData: null,
+    fixVersion: null,
   },
   reducers: {
-    updateState(state, {payload}) {
-      return {...state, ...payload}
+    updateState(state, { payload }) {
+      return { ...state, ...payload }
     },
   },
   effects: {
     *loadStorage(action, { call, put }) {
-      const storageData = yield call(Storage.multiGet, 'domain','projectData','fixVersion')
-      const domain = storageData.domain?storageData.domain:null
-      const fixVersion = storageData.fixVersion?storageData.fixVersion:null
-      const projectData = storageData.projectData?storageData.projectData:null
-      yield put(createAction('updateState')({
-        domain,
-        fixVersion,
-        projectData,
-        loading: false
-      }))
+      const storageData = yield call(
+        Storage.multiGet,
+        'domain',
+        'projectData',
+        'fixVersion'
+      )
+      const domain = storageData.domain ? storageData.domain : null
+      const fixVersion = storageData.fixVersion ? storageData.fixVersion : null
+      const projectData = storageData.projectData
+        ? storageData.projectData
+        : null
+      yield put(
+        createAction('updateState')({
+          domain,
+          fixVersion,
+          projectData,
+          loading: false,
+        })
+      )
     },
     *queryBugList({ payload }, { call, put }) {
       const result = yield call(queryBugList, payload)
       if (result) {
-        yield put(createAction('updateState')({  issues: result.issues ,domain:payload.domain}))
+        yield put(
+          createAction('updateState')({
+            issues: result.issues,
+            domain: payload.domain,
+          })
+        )
       }
     },
 
     *queryBugTransitions({ payload }, { call, put }) {
       const result = yield call(queryBugTransitions, payload)
       if (result) {
-        yield put(createAction('updateState')({  transitions: result.transitions }))
+        yield put(
+          createAction('updateState')({ transitions: result.transitions })
+        )
       }
     },
 
     *setTransitions({ payload }, { call, put }) {
       const result = yield call(setTransitions, payload)
       if (result) {
-        console.log("result",result)
+        console.log('result', result)
       }
     },
 
     *submitCommet({ payload }, { call, put }) {
       const result = yield call(submitCommet, payload)
       if (result) {
-        console.log("result",result)
+        console.log('result', result)
       }
     },
 
     *submitBug({ payload }, { call, put }) {
       const result = yield call(submitBug, payload)
       if (result) {
-        Storage.set('projectData',payload.projectData)
-        if(payload.fixVersion){
-          Storage.set('fixVersion',payload.fixVersion)
+        Storage.set('projectData', payload.projectData)
+        if (payload.fixVersion) {
+          Storage.set('fixVersion', payload.fixVersion)
         }
         yield put(createAction('updateState')({ submitBugKey: result.key }))
       }
@@ -129,8 +145,8 @@ export default {
     },
   },
   subscriptions: {
-    setup({dispatch}) {
-      dispatch({type: 'loadStorage'})
+    setup({ dispatch }) {
+      dispatch({ type: 'loadStorage' })
     },
   },
 }

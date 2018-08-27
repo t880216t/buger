@@ -8,7 +8,7 @@ import homeMode from './models/home'
 
 const app = dva({
   initialState: {},
-  models: [appModel,homeMode],
+  models: [appModel, homeMode],
   extraReducers: { router: routerReducer },
   onAction: [routerMiddleware],
   onError(e) {
@@ -16,7 +16,7 @@ const app = dva({
   },
 })
 
-export default app._store; // eslint-disable-line
+export default app._store // eslint-disable-line
 
 const App = app.start(<Router />)
 

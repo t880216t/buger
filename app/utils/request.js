@@ -1,6 +1,6 @@
 /* eslint-disable prefer-template,no-unused-expressions */
 import Toast from 'react-native-root-toast' // 引入类库
-import {Loading} from '../components/NetworkLoading'
+import { Loading } from '../components/NetworkLoading'
 import store from '../index'
 
 const codeMessage = {
@@ -25,15 +25,18 @@ function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
     return response
   }
-  if(response.status === 403){
+  if (response.status === 403) {
     return response
   }
   const errortext = codeMessage[response.status] || response.statusText
-  if(response.status === 401 || response.status === 400){
-    const {dispatch} = store
-    dispatch({type:'app/logout'})
+  if (response.status === 401 || response.status === 400) {
+    const { dispatch } = store
+    dispatch({ type: 'app/logout' })
   }
-  Toast.show(errortext,{duration: Toast.durations.LONG,position: Toast.positions.CENTER,})
+  Toast.show(errortext, {
+    duration: Toast.durations.LONG,
+    position: Toast.positions.CENTER,
+  })
   // notification.error({
   //   message: `请求错误 ${response.status}: ${response.url}`,
   //   description: errortext,
@@ -45,10 +48,10 @@ function checkStatus(response) {
 }
 
 export function toParams(param) {
-  let result = ""
+  let result = ''
   for (const name in param) {
     if (typeof param[name] !== 'function') {
-      result += "&" + name + "=" + encodeURI(param[name])
+      result += '&' + name + '=' + encodeURI(param[name])
     }
   }
   return result.substring(1)
@@ -68,17 +71,20 @@ export default function request(url, options) {
   const newOptions = { ...defaultOptions, ...options }
   if (newOptions.method === 'POST' || newOptions.method === 'PUT') {
     if (!(newOptions.body instanceof FormData)) {
-    // if (!(newOptions.body instanceof Object)) {
+      // if (!(newOptions.body instanceof Object)) {
       newOptions.headers = {
         Accept: 'application/json',
         // 'Content-Type': 'application/x-www-form-urlencoded',
-        'Content-Type': newOptions.customType === 'application/x-www-form-urlencoded'? 'application/x-www-form-urlencoded':'application/json;charset=UTF-8',
+        'Content-Type':
+          newOptions.customType === 'application/x-www-form-urlencoded'
+            ? 'application/x-www-form-urlencoded'
+            : 'application/json;charset=UTF-8',
         ...newOptions.headers,
       }
       newOptions.body =
-        newOptions.customType === 'application/x-www-form-urlencoded'?
-          toParams(newOptions.body):
-          JSON.stringify(newOptions.body)
+        newOptions.customType === 'application/x-www-form-urlencoded'
+          ? toParams(newOptions.body)
+          : JSON.stringify(newOptions.body)
       // newOptions.body = toParams(newOptions.body);
     } else {
       // newOptions.body is FormData
@@ -91,7 +97,10 @@ export default function request(url, options) {
 
   const timer = setTimeout(() => {
     Loading.hidden()
-    Toast.show('请求超时，请烧后重试！',{duration: Toast.durations.SHORT,position: Toast.positions.CENTER,})
+    Toast.show('请求超时，请烧后重试！', {
+      duration: Toast.durations.SHORT,
+      position: Toast.positions.CENTER,
+    })
   }, 30000)
 
   return fetch(url, newOptions)
@@ -101,13 +110,13 @@ export default function request(url, options) {
       if (newOptions.method === 'DELETE' || response.status === 204) {
         return response.text()
       }
-      if(newOptions.customType === 'application/x-www-form-urlencoded'){
+      if (newOptions.customType === 'application/x-www-form-urlencoded') {
         return response
       }
       return response.json()
     })
     .catch(e => {
-      console.log("e:",e)
+      console.log('e:', e)
       timer && clearTimeout(timer)
       Loading.hidden()
       // const { dispatch } = store;

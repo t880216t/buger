@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle,prefer-const,class-methods-use-this,react/sort-comp */
-import React, {PureComponent, Fragment} from 'react'
+import React, { PureComponent, Fragment } from 'react'
 import {
   View,
   Text,
@@ -10,7 +10,7 @@ import {
   Modal,
   Image,
   Platform,
-  ActivityIndicator
+  ActivityIndicator,
 } from 'react-native'
 import Gallery from 'react-native-image-gallery'
 
@@ -31,19 +31,22 @@ export default class ImageGallery extends PureComponent {
     this.formatImageList(this.props.imgList)
   }
 
-
   formatImageList(images) {
     let list = []
     images.forEach(item => {
-      let uri = ""
-      if(item.mimeType === "image/png"||item.mimeType === "image/jpeg"){
+      let uri = ''
+      if (item.mimeType === 'image/png' || item.mimeType === 'image/jpeg') {
         uri = item.content
         let newItem = {}
         newItem.source = {}
         newItem.source.uri = uri
         list.push(newItem)
-      }else if(item.mimeType === "multipart/form-data"){
-        if(item.filename.indexOf("jpg") > -1 || item.filename.indexOf("jpeg") > -1 || item.filename.indexOf("png") > -1  ){
+      } else if (item.mimeType === 'multipart/form-data') {
+        if (
+          item.filename.indexOf('jpg') > -1 ||
+          item.filename.indexOf('jpeg') > -1 ||
+          item.filename.indexOf('png') > -1
+        ) {
           uri = item.thumbnail
           let newItem = {}
           newItem.source = {}
@@ -52,28 +55,31 @@ export default class ImageGallery extends PureComponent {
         }
       }
     })
-    this.setState({images:list})
+    this.setState({ images: list })
   }
 
-  renderImage (imageProps, dimensions) {
+  renderImage(imageProps, dimensions) {
     const { width, height } = dimensions || {}
     // Display the loader until the dimensions are available, which means the image
     // has been loaded
-    return width && height ? (
-      <Image {...imageProps} />
-    ) : (
-      <ActivityIndicator />
-    )
+    return width && height ? <Image {...imageProps} /> : <ActivityIndicator />
   }
 
   onChangeImage(index) {
-    this.setState({index})
+    this.setState({ index })
   }
 
   renderError() {
     return (
-      <View style={{flex: 1, backgroundColor: 'black', alignItems: 'center', justifyContent: 'center'}}>
-        <Text style={{color: 'white', fontSize: 15, marginTop: 100}}>
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: 'black',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Text style={{ color: 'white', fontSize: 15, marginTop: 100 }}>
           This image cannot be displayed...
         </Text>
       </View>
@@ -81,11 +87,11 @@ export default class ImageGallery extends PureComponent {
   }
 
   galleryCount() {
-    const {index, images} = this.state
+    const { index, images } = this.state
     return (
       <View style={s.countWrap}>
         <View style={s.count}>
-          <Text style={{color: 'white', fontSize: 12,}}>
+          <Text style={{ color: 'white', fontSize: 12 }}>
             {index + 1}/{images.length}
           </Text>
         </View>
@@ -97,7 +103,7 @@ export default class ImageGallery extends PureComponent {
     this.setState({
       show: false,
       index: 0,
-      current: 0
+      current: 0,
     })
 
     if (Platform.OS === 'android') {
@@ -111,7 +117,7 @@ export default class ImageGallery extends PureComponent {
     let params = {
       show: true,
       index,
-      current: index
+      current: index,
     }
 
     let open = () => {
@@ -141,52 +147,46 @@ export default class ImageGallery extends PureComponent {
           style={s.wrap}
           onRequestClose={() => this.closeGallery()}
         >
-          <TouchableOpacity
-            style={s.close} onPress={() => this.closeGallery()}>
+          <TouchableOpacity style={s.close} onPress={() => this.closeGallery()}>
             <Image
-              style={{height: 30, width: 30}}
-              source={require("../images/close_white.png")}/>
+              style={{ height: 30, width: 30 }}
+              source={require('../images/close_white.png')}
+            />
           </TouchableOpacity>
 
-          {this.state.show &&
-          <Gallery
-            style={{flex: 1, backgroundColor: '#000'}}
-            images={this.state.images}
-            imageComponent={this.renderImage}
-            errorComponent={this.renderError}
-            onPageSelected={this.onChangeImage}
-            initialPage={this.state.current}
-            // index={this.state.current}
-            loader={
-              <View style={s.load}>
-                <ActivityIndicator color='#fff' size='large'/>
-              </View>
-
-            }
-            flatListProps={{
-              initialNumToRender: 10,
-              // keyExtractor: (item, index) => index.toString(),
-              initialScrollIndex: this.state.current,
-              getItemLayout: (data, index) => ({
-                length: Dimensions.get('screen').width,
-                offset: Dimensions.get('screen').width * index,
-                index,
-              }),
-            }}
-
-          />
-          }
+          {this.state.show && (
+            <Gallery
+              style={{ flex: 1, backgroundColor: '#000' }}
+              images={this.state.images}
+              imageComponent={this.renderImage}
+              errorComponent={this.renderError}
+              onPageSelected={this.onChangeImage}
+              initialPage={this.state.current}
+              // index={this.state.current}
+              loader={
+                <View style={s.load}>
+                  <ActivityIndicator color="#fff" size="large" />
+                </View>
+              }
+              flatListProps={{
+                initialNumToRender: 10,
+                // keyExtractor: (item, index) => index.toString(),
+                initialScrollIndex: this.state.current,
+                getItemLayout: (data, index) => ({
+                  length: Dimensions.get('screen').width,
+                  offset: Dimensions.get('screen').width * index,
+                  index,
+                }),
+              }}
+            />
+          )}
 
           {this.galleryCount()}
-
         </Modal>
-
-
       </Fragment>
     )
   }
 }
-
 
 const s = StyleSheet.create({
   wrap: {
@@ -202,7 +202,7 @@ const s = StyleSheet.create({
   load: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   close: {
     position: 'absolute',
@@ -214,7 +214,7 @@ const s = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'white',
-    borderRadius: 15
+    borderRadius: 15,
   },
   countWrap: {
     bottom: 40,
@@ -231,6 +231,5 @@ const s = StyleSheet.create({
     flexShrink: 1,
     backgroundColor: 'rgba(34, 34, 34, 0.5)',
     overflow: 'hidden',
-  }
-
+  },
 })

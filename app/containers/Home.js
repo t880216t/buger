@@ -1,5 +1,5 @@
 /* eslint-disable no-return-assign,no-unused-expressions,react/no-access-state-in-setstate,camelcase,no-param-reassign,object-shorthand */
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import {
   StyleSheet,
   View,
@@ -16,20 +16,20 @@ import {
   Linking,
   Platform,
 } from 'react-native'
-import {connect} from 'react-redux'
-import {Drawer, WhiteSpace, Modal} from 'antd-mobile-rn'
+import { connect } from 'react-redux'
+import { Drawer, Modal } from 'antd-mobile-rn'
 import ModalDropdown from 'react-native-modal-dropdown'
-import Toast from "react-native-root-toast"
-import {NavigationActions} from '../utils'
+import Toast from 'react-native-root-toast'
+import { NavigationActions } from '../utils'
 import Cell from './home/Cell'
-import {Loading} from "../components/NetworkLoading"
+import { Loading } from '../components/NetworkLoading'
 import CallOnceInInterval from '../components/CallOnceInInterval'
 
 const ScreenWidth = Dimensions.get('window').width
 
 let count = 0
 
-@connect(({app, home}) => ({...app, ...home}))
+@connect(({ app, home }) => ({ ...app, ...home }))
 export default class Header extends Component {
   // 构造
   constructor(props) {
@@ -49,8 +49,8 @@ export default class Header extends Component {
     const willFocus = this.props.navigation.addListener(
       'willFocus',
       payload => {
-        if (this.props.navigation.getParam("updateHome")) {
-          const domain = this.props.navigation.getParam("fetchDomain")
+        if (this.props.navigation.getParam('updateHome')) {
+          const domain = this.props.navigation.getParam('fetchDomain')
           if (domain) {
             this.updateHomeFromLoginPage(domain)
           }
@@ -60,42 +60,58 @@ export default class Header extends Component {
   }
 
   componentWillMount() {
-    const {login, domain, Authorization} = this.props
+    const { login, domain, Authorization } = this.props
     if (!login) {
-      this.props.dispatch(NavigationActions.navigate({routeName: 'Login'}))
+      this.props.dispatch(NavigationActions.navigate({ routeName: 'Login' }))
     } else {
       Loading.show()
-      this.props.dispatch({
-        type: 'home/queryBugList',
-        payload: {
-          params: {
-            "jql": "reporter = currentUser() ORDER BY createdDate DESC",
-            "startAt": 0,
-            "maxResults": 10,
-            "fields": ["reporter", "created", "summary", "status", "assignee", "customfield_10000", "description", "watches", "attachment", "issuekey", "comment"]
-          },
-          domain: domain,
-          headers: {
-            "Authorization": Authorization
-          }
-        }
-      }).then(() => {
-        this.props.dispatch({
-          type: 'home/queryFavourite',
+      this.props
+        .dispatch({
+          type: 'home/queryBugList',
           payload: {
+            params: {
+              jql: 'reporter = currentUser() ORDER BY createdDate DESC',
+              startAt: 0,
+              maxResults: 10,
+              fields: [
+                'reporter',
+                'created',
+                'summary',
+                'status',
+                'assignee',
+                'customfield_10000',
+                'description',
+                'watches',
+                'attachment',
+                'issuekey',
+                'comment',
+              ],
+            },
             domain: domain,
-          }
-        }).then(() => {
-          Loading.hidden()
-          const {favouriteList, issues, userInfo} = this.props
-          this.setState({
-            favouriteList: favouriteList,
-            issues: issues,
-            userInfo: userInfo,
-            domain: domain,
-          })
+            headers: {
+              Authorization: Authorization,
+            },
+          },
         })
-      })
+        .then(() => {
+          this.props
+            .dispatch({
+              type: 'home/queryFavourite',
+              payload: {
+                domain: domain,
+              },
+            })
+            .then(() => {
+              Loading.hidden()
+              const { favouriteList, issues, userInfo } = this.props
+              this.setState({
+                favouriteList: favouriteList,
+                issues: issues,
+                userInfo: userInfo,
+                domain: domain,
+              })
+            })
+        })
     }
   }
 
@@ -103,236 +119,341 @@ export default class Header extends Component {
     this.willFocus.remove()
   }
 
-  updateHomeFromLoginPage = (domain) => {
+  updateHomeFromLoginPage = domain => {
     Loading.show()
-    this.props.dispatch({
-      type: 'home/queryBugList',
-      payload: {
-        params: {
-          "jql": "reporter = currentUser() ORDER BY createdDate DESC",
-          "startAt": 0,
-          "maxResults": 10,
-          "fields": ["reporter", "created", "summary", "status", "assignee", "customfield_10000", "description", "watches", "attachment", "issuekey", "comment"]
-        },
-        domain: domain,
-      }
-    }).then(() => {
-      this.props.dispatch({
-        type: 'home/queryFavourite',
+    this.props
+      .dispatch({
+        type: 'home/queryBugList',
         payload: {
+          params: {
+            jql: 'reporter = currentUser() ORDER BY createdDate DESC',
+            startAt: 0,
+            maxResults: 10,
+            fields: [
+              'reporter',
+              'created',
+              'summary',
+              'status',
+              'assignee',
+              'customfield_10000',
+              'description',
+              'watches',
+              'attachment',
+              'issuekey',
+              'comment',
+            ],
+          },
           domain: domain,
-        }
-      }).then(() => {
-        Loading.hidden()
-        const {favouriteList, issues, userInfo} = this.props
-        if (userInfo) {
-          this.setState({
-            favouriteList: favouriteList,
-            issues: issues,
-            userInfo: userInfo
-          })
-        } else if (this.props.userName) {
-          this.props.dispatch({
-            type: 'app/queryLoginUserInfo',
+        },
+      })
+      .then(() => {
+        this.props
+          .dispatch({
+            type: 'home/queryFavourite',
             payload: {
               domain: domain,
-              userName: this.props.userName,
-            }
-          }).then(() => {
-            this.setState({
-              favouriteList: favouriteList,
-              issues: issues,
-              userInfo: this.props.userInfo,
-              domain:domain
-            })
+            },
           })
-        }
+          .then(() => {
+            Loading.hidden()
+            const { favouriteList, issues, userInfo } = this.props
+            if (userInfo) {
+              this.setState({
+                favouriteList: favouriteList,
+                issues: issues,
+                userInfo: userInfo,
+              })
+            } else if (this.props.userName) {
+              this.props
+                .dispatch({
+                  type: 'app/queryLoginUserInfo',
+                  payload: {
+                    domain: domain,
+                    userName: this.props.userName,
+                  },
+                })
+                .then(() => {
+                  this.setState({
+                    favouriteList: favouriteList,
+                    issues: issues,
+                    userInfo: this.props.userInfo,
+                    domain: domain,
+                  })
+                })
+            }
+          })
       })
-    })
   }
 
   onEndReach = () => {
     count += 10
     if (!this.state.optionHasChange) {
       Loading.show()
-      this.props.dispatch({
-        type: 'home/queryBugList',
-        payload: {
-          params: {
-            "jql": "reporter = currentUser() ORDER BY createdDate DESC",
-            "startAt": count,
-            "maxResults": 10,
-            "fields": ["reporter", "created", "summary", "status", "assignee", "customfield_10000", "description", "watches", "attachment", "issuekey", "comment"]
+      this.props
+        .dispatch({
+          type: 'home/queryBugList',
+          payload: {
+            params: {
+              jql: 'reporter = currentUser() ORDER BY createdDate DESC',
+              startAt: count,
+              maxResults: 10,
+              fields: [
+                'reporter',
+                'created',
+                'summary',
+                'status',
+                'assignee',
+                'customfield_10000',
+                'description',
+                'watches',
+                'attachment',
+                'issuekey',
+                'comment',
+              ],
+            },
+            domain: this.props.domain ? this.props.domain : this.state.domain,
           },
-          domain: this.props.domain?this.props.domain:this.state.domain,
-        }
-      }).then(() => {
-        Loading.hidden()
-        const {issues} = this.props
-        if (issues && issues.length > 0) {
-          this.setState({issues: this.state.issues.concat(issues)})
-        } else {
-          Toast.show("没有更多了！", {duration: Toast.durations.SHORT, position: Toast.positions.CENTER,})
-        }
-      })
+        })
+        .then(() => {
+          Loading.hidden()
+          const { issues } = this.props
+          if (issues && issues.length > 0) {
+            this.setState({ issues: this.state.issues.concat(issues) })
+          } else {
+            Toast.show('没有更多了！', {
+              duration: Toast.durations.SHORT,
+              position: Toast.positions.CENTER,
+            })
+          }
+        })
     } else {
       Loading.show()
-      this.props.dispatch({
-        type: 'home/queryBugList',
-        payload: {
-          params: {
-            "jql": this.state.favouriteList[this.state.optionIndex].jql,
-            "startAt": count,
-            "maxResults": 10,
-            "fields": ["reporter", "created", "summary", "status", "assignee", "customfield_10000", "description", "watches", "attachment", "issuekey", "comment"]
+      this.props
+        .dispatch({
+          type: 'home/queryBugList',
+          payload: {
+            params: {
+              jql: this.state.favouriteList[this.state.optionIndex].jql,
+              startAt: count,
+              maxResults: 10,
+              fields: [
+                'reporter',
+                'created',
+                'summary',
+                'status',
+                'assignee',
+                'customfield_10000',
+                'description',
+                'watches',
+                'attachment',
+                'issuekey',
+                'comment',
+              ],
+            },
+            domain: this.props.domain ? this.props.domain : this.state.domain,
           },
-          domain: this.props.domain?this.props.domain:this.state.domain,
-        }
-      }).then(() => {
-        Loading.hidden()
-        const {issues} = this.props
-        if (issues && issues.length > 0) {
-          this.setState({issues: this.state.issues.concat(issues)})
-        } else {
-          Toast.show("没有更多了！", {duration: Toast.durations.SHORT, position: Toast.positions.CENTER,})
-        }
-      })
+        })
+        .then(() => {
+          Loading.hidden()
+          const { issues } = this.props
+          if (issues && issues.length > 0) {
+            this.setState({ issues: this.state.issues.concat(issues) })
+          } else {
+            Toast.show('没有更多了！', {
+              duration: Toast.durations.SHORT,
+              position: Toast.positions.CENTER,
+            })
+          }
+        })
     }
   }
 
   onRefresh = () => {
     count = 0
-    this.setState({refreshing: true}, () => {
+    this.setState({ refreshing: true }, () => {
       if (!this.state.optionHasChange) {
         Loading.show()
-        this.props.dispatch({
-          type: 'home/queryBugList',
-          payload: {
-            params: {
-              "jql": "reporter = currentUser() ORDER BY createdDate DESC",
-              "startAt": count,
-              "maxResults": 10,
-              "fields": ["reporter", "created", "summary", "status", "assignee", "customfield_10000", "description", "watches", "attachment", "issuekey", "comment"]
-            },
-            domain: this.props.domain?this.props.domain:this.state.domain,
-          }
-        }).then(() => {
-          Loading.hidden()
-          this.props.dispatch({
-            type: 'home/queryFavourite',
+        this.props
+          .dispatch({
+            type: 'home/queryBugList',
             payload: {
-              domain: this.props.domain?this.props.domain:this.state.domain,
-            }
-          }).then(() => {
+              params: {
+                jql: 'reporter = currentUser() ORDER BY createdDate DESC',
+                startAt: count,
+                maxResults: 10,
+                fields: [
+                  'reporter',
+                  'created',
+                  'summary',
+                  'status',
+                  'assignee',
+                  'customfield_10000',
+                  'description',
+                  'watches',
+                  'attachment',
+                  'issuekey',
+                  'comment',
+                ],
+              },
+              domain: this.props.domain ? this.props.domain : this.state.domain,
+            },
+          })
+          .then(() => {
             Loading.hidden()
-            const {favouriteList, issues} = this.props
+            this.props
+              .dispatch({
+                type: 'home/queryFavourite',
+                payload: {
+                  domain: this.props.domain
+                    ? this.props.domain
+                    : this.state.domain,
+                },
+              })
+              .then(() => {
+                Loading.hidden()
+                const { favouriteList, issues } = this.props
+                this.setState({
+                  favouriteList: favouriteList,
+                  issues: issues,
+                  refreshing: false,
+                })
+              })
+          })
+          .catch(err => {
+            Loading.hidden()
             this.setState({
-              favouriteList: favouriteList,
-              issues: issues,
               refreshing: false,
             })
           })
-        }).catch((err) => {
-          Loading.hidden()
-          this.setState({
-            refreshing: false,
-          })
-        })
       } else {
         Loading.show()
-        this.props.dispatch({
-          type: 'home/queryBugList',
-          payload: {
-            params: {
-              "jql": this.state.favouriteList[this.state.optionIndex].jql,
-              "startAt": count,
-              "maxResults": 10,
-              "fields": ["reporter", "created", "summary", "status", "assignee", "customfield_10000", "description", "watches", "attachment", "issuekey", "comment"]
-            },
-            domain: this.props.domain?this.props.domain:this.state.domain,
-          }
-        }).then(() => {
-          Loading.hidden()
-          this.props.dispatch({
-            type: 'home/queryFavourite',
+        this.props
+          .dispatch({
+            type: 'home/queryBugList',
             payload: {
-              domain: this.props.domain?this.props.domain:this.state.domain,
-            }
-          }).then(() => {
+              params: {
+                jql: this.state.favouriteList[this.state.optionIndex].jql,
+                startAt: count,
+                maxResults: 10,
+                fields: [
+                  'reporter',
+                  'created',
+                  'summary',
+                  'status',
+                  'assignee',
+                  'customfield_10000',
+                  'description',
+                  'watches',
+                  'attachment',
+                  'issuekey',
+                  'comment',
+                ],
+              },
+              domain: this.props.domain ? this.props.domain : this.state.domain,
+            },
+          })
+          .then(() => {
             Loading.hidden()
-            const {favouriteList, issues} = this.props
+            this.props
+              .dispatch({
+                type: 'home/queryFavourite',
+                payload: {
+                  domain: this.props.domain
+                    ? this.props.domain
+                    : this.state.domain,
+                },
+              })
+              .then(() => {
+                Loading.hidden()
+                const { favouriteList, issues } = this.props
+                this.setState({
+                  favouriteList: favouriteList,
+                  issues: issues,
+                  refreshing: false,
+                })
+              })
+          })
+          .catch(err => {
+            Loading.hidden()
             this.setState({
-              favouriteList: favouriteList,
-              issues: issues,
               refreshing: false,
             })
           })
-        }).catch((err) => {
-          Loading.hidden()
-          this.setState({
-            refreshing: false,
-          })
-        })
       }
     })
   }
 
-  dropdownAdjustFrame = (style) => {
-    if(Platform.OS === 'ios'){
+  dropdownAdjustFrame = style => {
+    if (Platform.OS === 'ios') {
       style.top += 20
-    }else {
+    } else {
       style.top -= 5
     }
     style.left = 0
     return style
   }
 
-  handleOptionChange = (index) => {
+  handleOptionChange = index => {
     count = 0
     Loading.show()
-    this.props.dispatch({
-      type: 'home/queryBugList',
-      payload: {
-        params: {
-          "jql": this.state.favouriteList[index].jql,
-          "startAt": count,
-          "maxResults": 10,
-          "fields": ["reporter", "created", "summary", "status", "assignee", "customfield_10000", "description", "watches", "attachment", "issuekey", "comment"]
+    this.props
+      .dispatch({
+        type: 'home/queryBugList',
+        payload: {
+          params: {
+            jql: this.state.favouriteList[index].jql,
+            startAt: count,
+            maxResults: 10,
+            fields: [
+              'reporter',
+              'created',
+              'summary',
+              'status',
+              'assignee',
+              'customfield_10000',
+              'description',
+              'watches',
+              'attachment',
+              'issuekey',
+              'comment',
+            ],
+          },
+          domain: this.props.domain ? this.props.domain : this.state.domain,
         },
-        domain: this.props.domain?this.props.domain:this.state.domain,
-      }
-    }).then(() => {
-      Loading.hidden()
-      const {issues} = this.props
-      if (issues) {
-        this.setState({
-          issues: issues,
-          optionHasChange: true,
-          optionIndex: index,
-        })
-      }
-    })
+      })
+      .then(() => {
+        Loading.hidden()
+        const { issues } = this.props
+        if (issues) {
+          this.setState({
+            issues: issues,
+            optionHasChange: true,
+            optionIndex: index,
+          })
+        }
+      })
   }
 
   handlelogout = () => {
     Alert.alert('温馨提醒', `你确定要退出吗？`, [
-      {text: '取消'},
+      { text: '取消' },
       {
-        text: '确定', onPress: () => {
+        text: '确定',
+        onPress: () => {
           this.drawer && this.drawer.closeDrawer()
-          this.props.dispatch({type: 'app/logout'})
-        }
-      }
+          this.props.dispatch({ type: 'app/logout' })
+        },
+      },
     ])
   }
 
   goAddPage = () => {
-    this.props.dispatch(NavigationActions.navigate({routeName: 'AddPage'}))
+    this.props.dispatch(NavigationActions.navigate({ routeName: 'AddPage' }))
   }
 
-  extraUniqueKey = (item) => item.id
+  extraUniqueKey = item => item.id
 
-  renderItemView = (item) => <Cell item={item}/>
+  renderItemView = item => <Cell item={item} />
 
   renderNoResult = () => (
     <View style={styles.noResult}>
@@ -340,17 +461,22 @@ export default class Header extends Component {
     </View>
   )
 
-  renderListFooter = () => (
-    <View style={{height: 100, padding: 10}} />
-  )
+  renderListFooter = () => <View style={{ height: 100, padding: 10 }} />
 
   render() {
     const sidebar = (
       <ScrollView style={styles.side_container}>
-        <ImageBackground style={styles.side_header} source={require('../images/header_back.jpg')}>
+        <ImageBackground
+          style={styles.side_header}
+          source={require('../images/header_back.jpg')}
+        >
           <View style={styles.userInfo}>
             <Image
-              source={this.state.userInfo ? {uri: this.state.userInfo.avatarUrls["48x48"]} : require('../images/logo.jpg')}
+              source={
+                this.state.userInfo
+                  ? { uri: this.state.userInfo.avatarUrls['48x48'] }
+                  : require('../images/logo.jpg')
+              }
               style={{
                 height: 40,
                 width: 40,
@@ -359,28 +485,43 @@ export default class Header extends Component {
                 borderColor: '#fafafa',
               }}
             />
-            <Text style={styles.name}>{this.state.userInfo && this.state.userInfo.displayName}</Text>
+            <Text style={styles.name}>
+              {this.state.userInfo && this.state.userInfo.displayName}
+            </Text>
           </View>
         </ImageBackground>
-        <TouchableOpacity style={styles.side_item}
-                          onPress={() => this.setState({libModalVisible: !this.state.libModalVisible})}>
+        <TouchableOpacity
+          style={styles.side_item}
+          onPress={() =>
+            this.setState({ libModalVisible: !this.state.libModalVisible })
+          }
+        >
           <Image
             source={require('../images/lib.png')}
             style={styles.side_logo}
           />
           <Text style={styles.side_label}>参考资料</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.side_item}
-                          onPress={() => this.setState({aboutMeModalVisible: !this.state.aboutMeModalVisible})}>
+        <TouchableOpacity
+          style={styles.side_item}
+          onPress={() =>
+            this.setState({
+              aboutMeModalVisible: !this.state.aboutMeModalVisible,
+            })
+          }
+        >
           <Image
             source={require('../images/aboutMe.png')}
             style={styles.side_logo}
           />
           <Text style={styles.side_label}>关于我么</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.side_item} onPress={() => {
-          this.handlelogout()
-        }}>
+        <TouchableOpacity
+          style={styles.side_item}
+          onPress={() => {
+            this.handlelogout()
+          }}
+        >
           <Image
             source={require('../images/logout.png')}
             style={styles.side_logo}
@@ -394,7 +535,7 @@ export default class Header extends Component {
         sidebar={sidebar}
         position="left"
         open={false}
-        drawerRef={ref => this.drawer = ref}
+        drawerRef={ref => (this.drawer = ref)}
         drawerBackgroundColor="#ccc"
       >
         <StatusBar
@@ -405,11 +546,18 @@ export default class Header extends Component {
         />
         <View>
           <View style={styles.header_container}>
-            <TouchableOpacity style={styles.logo_container} onPress={() => {
-              this.drawer && this.drawer.openDrawer()
-            }}>
+            <TouchableOpacity
+              style={styles.logo_container}
+              onPress={() => {
+                this.drawer && this.drawer.openDrawer()
+              }}
+            >
               <Image
-                source={this.state.userInfo ? {uri: this.state.userInfo.avatarUrls["48x48"]} : require('../images/logo.jpg')}
+                source={
+                  this.state.userInfo
+                    ? { uri: this.state.userInfo.avatarUrls['48x48'] }
+                    : require('../images/logo.jpg')
+                }
                 style={{
                   height: 40,
                   width: 40,
@@ -421,23 +569,31 @@ export default class Header extends Component {
               <ModalDropdown
                 animated={false}
                 options={this.state.favouriteList}
-                onDropdownWillShow={() => this.setState({isDropShow: !this.state.isDropShow})}
-                onDropdownWillHide={() => this.setState({isDropShow: !this.state.isDropShow})}
-                onSelect={(index) => {
+                onDropdownWillShow={() =>
+                  this.setState({ isDropShow: !this.state.isDropShow })
+                }
+                onDropdownWillHide={() =>
+                  this.setState({ isDropShow: !this.state.isDropShow })
+                }
+                onSelect={index => {
                   this.handleOptionChange(index)
                 }}
                 dropdownStyle={styles.dropdownStyle}
                 adjustFrame={style => this.dropdownAdjustFrame(style)}
-                renderRow={(item) => (
+                renderRow={item => (
                   <TouchableOpacity style={styles.drop_item}>
-                    <Text style={{fontSize: 16}}>{item.name}</Text>
+                    <Text style={{ fontSize: 16 }}>{item.name}</Text>
                   </TouchableOpacity>
                 )}
               >
-                <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                  <Text style={{fontSize: 16, color: '#fff'}}>过滤器</Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                  <Text style={{ fontSize: 16, color: '#fff' }}>过滤器</Text>
                   <Image
-                    source={this.state.isDropShow ? require('../images/up.png') : require('../images/down.png')}
+                    source={
+                      this.state.isDropShow
+                        ? require('../images/up.png')
+                        : require('../images/down.png')
+                    }
                     style={{
                       height: 10,
                       width: 10,
@@ -447,7 +603,10 @@ export default class Header extends Component {
                 </View>
               </ModalDropdown>
             </View>
-            <TouchableOpacity style={styles.add_container} onPress={() => this.goAddPage()}>
+            <TouchableOpacity
+              style={styles.add_container}
+              onPress={() => this.goAddPage()}
+            >
               <Image
                 source={require('../images/add.png')}
                 style={{
@@ -460,15 +619,21 @@ export default class Header extends Component {
         </View>
         <View style={styles.content_container}>
           <FlatList
-            style={{width: Dimensions.get('window').width,height:'100%'}}
+            style={{ width: Dimensions.get('window').width, height: '100%' }}
             refreshControl={
-              <RefreshControl refreshing={this.state.refreshing} onRefresh={() => this.onRefresh()}
-                              title="Loading..."
-                              titleColor="#888"/>}
+              <RefreshControl
+                refreshing={this.state.refreshing}
+                onRefresh={() => this.onRefresh()}
+                title="Loading..."
+                titleColor="#888"
+              />
+            }
             data={this.state.issues}
-            renderItem={({item}) => this.renderItemView(item)}
+            renderItem={({ item }) => this.renderItemView(item)}
             keyExtractor={this.extraUniqueKey}
-            ItemSeparatorComponent={() => <View style={{height: 1, backgroundColor: '#DAE0E6'}}/>}
+            ItemSeparatorComponent={() => (
+              <View style={{ height: 1, backgroundColor: '#DAE0E6' }} />
+            )}
             ListEmptyComponent={this.renderNoResult()}
             initialNumToRender={10}
             onEndReached={() => CallOnceInInterval(() => this.onEndReach())}
@@ -483,38 +648,82 @@ export default class Header extends Component {
           visible={this.state.libModalVisible}
           animationType="slide-up"
           maskClosable
-          onClose={() => this.setState({libModalVisible: false})}
+          onClose={() => this.setState({ libModalVisible: false })}
           closable
         >
-          <ScrollView style={{padding: 10, maxHeight: 400}}>
-            <Text style={{fontSize: 14, color: '#000', marginTop: 10}}> 本应用主要参考，但不限于以下开源资料。想二次开发或自定义的同学可以了解下。</Text>
-            <Text style={{fontSize: 16, color: '#000', marginTop: 10}}>JIRA 6.1 REST API documentation</Text>
-            <Text style={{fontSize: 14, color: 'blue'}}
-                  onPress={() => Linking.openURL('https://docs.atlassian.com/DAC/rest/jira/6.1.html')}>
+          <ScrollView style={{ padding: 10, maxHeight: 400 }}>
+            <Text style={{ fontSize: 14, color: '#000', marginTop: 10 }}>
+              {' '}
+              本应用主要参考，但不限于以下开源资料。想二次开发或自定义的同学可以了解下。
+            </Text>
+            <Text style={{ fontSize: 16, color: '#000', marginTop: 10 }}>
+              JIRA 6.1 REST API documentation
+            </Text>
+            <Text
+              style={{ fontSize: 14, color: 'blue' }}
+              onPress={() =>
+                Linking.openURL(
+                  'https://docs.atlassian.com/DAC/rest/jira/6.1.html'
+                )
+              }
+            >
               https://docs.atlassian.com/DAC/rest/jira/6.1.html
             </Text>
-            <Text style={{fontSize: 16, color: '#000', marginTop: 10}}>React Native</Text>
-            <Text style={{fontSize: 14, color: 'blue'}}
-                  onPress={() => Linking.openURL('http://facebook.github.io/react-native')}>
+            <Text style={{ fontSize: 16, color: '#000', marginTop: 10 }}>
+              React Native
+            </Text>
+            <Text
+              style={{ fontSize: 14, color: 'blue' }}
+              onPress={() =>
+                Linking.openURL('http://facebook.github.io/react-native')
+              }
+            >
               http://facebook.github.io/react-native
             </Text>
-            <Text style={{fontSize: 16, color: '#000', marginTop: 10}}>火之子的个人博客</Text>
-            <Text style={{fontSize: 14, color: 'blue'}} onPress={() => Linking.openURL('https://orion-c.top')}>
+            <Text style={{ fontSize: 16, color: '#000', marginTop: 10 }}>
+              火之子的个人博客
+            </Text>
+            <Text
+              style={{ fontSize: 14, color: 'blue' }}
+              onPress={() => Linking.openURL('https://orion-c.top')}
+            >
               https://orion-c.top
             </Text>
-            <Text style={{fontSize: 16, color: '#000', marginTop: 10}}>dva框架</Text>
-            <Text style={{fontSize: 14, color: 'blue'}}
-                  onPress={() => Linking.openURL('https://github.com/dvajs/dva/blob/master/README_zh-CN.md')}>
+            <Text style={{ fontSize: 16, color: '#000', marginTop: 10 }}>
+              dva框架
+            </Text>
+            <Text
+              style={{ fontSize: 14, color: 'blue' }}
+              onPress={() =>
+                Linking.openURL(
+                  'https://github.com/dvajs/dva/blob/master/README_zh-CN.md'
+                )
+              }
+            >
               https://github.com/dvajs/dva/blob/master/README_zh-CN.md
             </Text>
-            <Text style={{fontSize: 16, color: '#000', marginTop: 10}}>Ant Design 移动端设计规范</Text>
-            <Text style={{fontSize: 14, color: 'blue'}}
-                  onPress={() => Linking.openURL('https://rn.mobile.ant.design/index-cn')}>
+            <Text style={{ fontSize: 16, color: '#000', marginTop: 10 }}>
+              Ant Design 移动端设计规范
+            </Text>
+            <Text
+              style={{ fontSize: 14, color: 'blue' }}
+              onPress={() =>
+                Linking.openURL('https://rn.mobile.ant.design/index-cn')
+              }
+            >
               https://rn.mobile.ant.design/index-cn
             </Text>
-            <Text style={{fontSize: 16, color: '#000', marginTop: 10}}>react-native-dva-starter</Text>
-            <Text style={{fontSize: 14, color: 'blue', marginBottom: 10}}
-                  onPress={() => Linking.openURL('https://github.com/nihgwu/react-native-dva-starter')}>
+            <Text style={{ fontSize: 16, color: '#000', marginTop: 10 }}>
+              react-native-dva-starter
+            </Text>
+            <Text
+              style={{ fontSize: 14, color: 'blue', marginBottom: 10 }}
+              onPress={() =>
+                Linking.openURL(
+                  'https://github.com/nihgwu/react-native-dva-starter'
+                )
+              }
+            >
               https://github.com/nihgwu/react-native-dva-starter
             </Text>
           </ScrollView>
@@ -527,22 +736,31 @@ export default class Header extends Component {
           animationType="slide-up"
           maskClosable
           closable
-          onClose={() => this.setState({aboutMeModalVisible: false})}
+          onClose={() => this.setState({ aboutMeModalVisible: false })}
         >
           <View>
-            <Text style={{textAlign: 'center'}}>当前版本v3.0.0</Text>
-            <Text style={{marginTop: 10,}}> 感谢使用本应用，如您在使用过程遇到问题或有更多建议，请邮件给<Text style={{color: 'blue'}}
-                                                                                onPress={() => Linking.openURL('mailto:562746248@qq.com')}>
-              562746248@qq.com</Text>
+            <Text style={{ textAlign: 'center' }}>当前版本v3.0.0</Text>
+            <Text style={{ marginTop: 10 }}>
+              {' '}
+              感谢使用本应用，如您在使用过程遇到问题或有更多建议，请邮件给
+              <Text
+                style={{ color: 'blue' }}
+                onPress={() => Linking.openURL('mailto:562746248@qq.com')}
+              >
+                562746248@qq.com
+              </Text>
               ，我将尽快处理。
             </Text>
-            <Text> 如果您愿意，请截图扫描打赏码，给予我鼓励。后续打赏够99$，我将在取得苹果开发者账号后，发布IOS版本。</Text>
+            <Text>
+              {' '}
+              如果您愿意，请截图扫描打赏码，给予我鼓励。后续打赏够99$，我将在取得苹果开发者账号后，发布IOS版本。
+            </Text>
             <Image
               source={require('../images/shang.png')}
               style={{
                 height: 200,
                 width: 200,
-                alignSelf: 'center'
+                alignSelf: 'center',
               }}
             />
           </View>
@@ -562,8 +780,8 @@ const styles = StyleSheet.create({
   },
   header_container: {
     backgroundColor: 'rgb(63, 81, 181)',
-    height: (Platform.OS === 'ios') ? 70 : 90,
-    flexDirection: "row",
+    height: Platform.OS === 'ios' ? 70 : 90,
+    flexDirection: 'row',
     alignItems: 'flex-end',
     width: ScreenWidth,
   },
@@ -585,7 +803,7 @@ const styles = StyleSheet.create({
   },
   dropdownStyle: {
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   drop_item: {
     width: ScreenWidth,
@@ -601,14 +819,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     paddingTop: 50,
-    width: '100%'
+    width: '100%',
   },
   noResultText: {
     paddingTop: 10,
     fontSize: 13,
     color: '#222',
     width: '100%',
-    textAlign: 'center'
+    textAlign: 'center',
   },
   name: {
     fontSize: 26,
@@ -616,7 +834,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   userInfo: {
-    flexDirection: "row",
+    flexDirection: 'row',
     margin: 20,
   },
   side_header: {
@@ -625,7 +843,7 @@ const styles = StyleSheet.create({
   },
   side_container: {
     flex: 1,
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
   },
   side_logo: {
     height: 20,
@@ -641,9 +859,9 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     paddingRight: 20,
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   closeWrap: {
-    backgroundColor: 'red'
-  }
+    backgroundColor: 'red',
+  },
 })

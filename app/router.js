@@ -1,9 +1,6 @@
 import React, { PureComponent } from 'react'
 import { BackHandler, Animated, Easing } from 'react-native'
-import {
-  createStackNavigator,
-  NavigationActions,
-} from 'react-navigation'
+import { createStackNavigator, NavigationActions } from 'react-navigation'
 import {
   reduxifyNavigator,
   createReactNavigationReduxMiddleware,
@@ -19,7 +16,7 @@ import AddPage from './containers/AddPage'
 
 /**
  * 主页面导航
-* */
+ * */
 const AppNavigator = createStackNavigator(
   {
     Home: { screen: Home },
