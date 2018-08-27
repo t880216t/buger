@@ -50,7 +50,7 @@ export default {
     *queryBugList({ payload }, { call, put }) {
       const result = yield call(queryBugList, payload)
       if (result) {
-        yield put(createAction('updateState')({  issues: result.issues }))
+        yield put(createAction('updateState')({  issues: result.issues ,domain:payload.domain}))
       }
     },
 

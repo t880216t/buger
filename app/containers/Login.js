@@ -16,9 +16,10 @@ import {
   Image,
 } from 'react-native'
 import {connect} from 'react-redux'
-import {Loading} from '../components/NetworkLoading'
-import {createAction, NavigationActions} from '../utils'
 import Toast from "react-native-root-toast"
+import {Loading} from "../components/NetworkLoading"
+import {NavigationActions} from "../utils"
+
 
 const ScreenWidth = Dimensions.get('window').width
 const ScreenHeight = Dimensions.get('window').height
@@ -35,7 +36,7 @@ class Login extends Component {
     loginError: false,
     needCaptcha: false,
     timestamp: "",
-    domain: "http://jira.默认域名",
+    domain: "http://jira.vemic.com",
   }
 
   componentDidMount() {
@@ -95,6 +96,7 @@ class Login extends Component {
         Toast.show("验证码不可空！", {duration: Toast.durations.SHORT, position: Toast.positions.CENTER,})
         return
       }
+      Loading.show()
       this.props.dispatch({
         type: 'app/loginWithCaptcha',
         payload: {
@@ -116,9 +118,14 @@ class Login extends Component {
             loginError: loginError,
             needCaptcha: needCaptcha,
             timestamp: timestamp.toString(),
+          },()=>{
+            if(!loginError){
+              this.props.dispatch(NavigationActions.navigate({routeName: 'Home',params:{updateHome:true,fetchDomain:this.state.domain}}))
+            }
           })
         })
     }else {
+      Loading.show()
       this.props.dispatch({
         type: 'app/login',
         payload: {
@@ -139,6 +146,10 @@ class Login extends Component {
             loginError: loginError,
             needCaptcha: needCaptcha,
             timestamp: timestamp.toString(),
+          },()=>{
+            if(!loginError){
+              this.props.dispatch(NavigationActions.navigate({routeName: 'Home',params:{updateHome:true,fetchDomain:this.state.domain}}))
+            }
           })
         })
     }
@@ -260,12 +271,12 @@ class Login extends Component {
                 <View style={styles.captcha_image}>
                   <Image
                     style={{height: 40, width: 120, resizeMode: 'contain'}}
-                    source={{uri: `${this.state.domain}/captcha?__r=${this.state.timestamp}`}}
+                    source={{uri: `http://jira.vemic.com/captcha?__r=${this.state.timestamp}`}}
                   />
                 </View>
               </View>
               }
-              <TouchableOpacity style={[styles.input_container, {borderWidth: 0,}]} onPress={this.onLogin}>
+              <TouchableOpacity style={styles.login_container} onPress={this.onLogin}>
                 <Text style={styles.button_text}>登录</Text>
               </TouchableOpacity>
             </KeyboardAvoidingView>
@@ -304,6 +315,17 @@ const styles = StyleSheet.create({
     marginLeft: 30,
     marginBottom: 10,
     marginRight: 30,
+  },
+  login_container: {
+    flexDirection: 'row',
+    borderColor: '#fafafa',
+    borderRadius: 22,
+    alignItems: "center",
+    marginLeft: 30,
+    marginBottom: 10,
+    marginRight: 30,
+    backgroundColor: "rgba(255,255,255,0.9)",
+    opacity: 0.3,
   },
   captcha: {
     flexDirection: "row",
@@ -355,12 +377,9 @@ const styles = StyleSheet.create({
   button_text: {
     fontSize: 20,
     padding: 8,
-    opacity: 0.3,
     flex: 1,
     textAlign: 'center',
     alignSelf: 'center',
-    backgroundColor: "rgba(255,255,255,0.9)",
-    borderRadius: 22,
   }
 })
 

@@ -20,6 +20,7 @@ export default {
     domain:null,
     userInfo:null,
     Authorization:null,
+    userName:null,
   },
   reducers: {
     updateState(state, { payload }) {
@@ -44,11 +45,12 @@ export default {
         if(resulut.loginInfo){
           const loginUserResult = yield call(queryLoginUserInfo, payload)
           if(loginUserResult){
+            yield put(createAction('updateState')({ loginError: false }))
             Storage.set('userInfo',loginUserResult)
             Storage.set('login', true)
             Storage.set('domain', payload.domain)
             Storage.set('Authorization', payload.headers.Authorization)
-            yield put(NavigationActions.navigate({routeName: 'Home',params:{updateHome:true,fetchDomain:payload.domain}}))
+            yield put(createAction('updateState')({ userName: payload.userName }))
           }
         }
         else if (resulut.errorMessages&&resulut.errorMessages[0] === "Login denied"){
@@ -71,17 +73,26 @@ export default {
         }else {
           const loginUserResult = yield call(queryLoginUserInfo, payload)
           if (loginUserResult){
+            yield put(createAction('updateState')({ loginError: false }))
             Storage.set('userInfo',loginUserResult)
             Storage.set('login', true)
             Storage.set('domain', payload.domain)
             Storage.set('Authorization', payload.headers.Authorization)
-            yield put(NavigationActions.navigate({routeName: 'Home',params:{updateHome:true,fetchDomain:payload.domain}}))
+            yield put(createAction('updateState')({ userName: payload.userName }))
           }
         }
       }else {
         yield put(createAction('updateState')({ loginError: true }))
       }
       yield put(createAction('updateState')({  fetching: false }))
+    },
+
+    *queryLoginUserInfo({ payload }, { call, put }) {
+      const loginUserResult = yield call(queryLoginUserInfo, payload)
+      if (loginUserResult){
+        Storage.set('userInfo',loginUserResult)
+        yield put(createAction('updateState')({ userInfo: loginUserResult }))
+      }
     },
 
     *logout(action, { call, put }) {

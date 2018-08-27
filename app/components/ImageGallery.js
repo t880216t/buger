@@ -36,7 +36,7 @@ export default class ImageGallery extends PureComponent {
     let list = []
     images.forEach(item => {
       let uri = ""
-      if(item.mimeType === "image/png"){
+      if(item.mimeType === "image/png"||item.mimeType === "image/jpeg"){
         uri = item.content
         let newItem = {}
         newItem.source = {}

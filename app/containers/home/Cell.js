@@ -284,7 +284,7 @@ export default class Cell extends PureComponent {
             {item.fields.attachment.length > 1 &&
             item.fields.attachment.map((attachmentItem,index) => {
               let result
-                if(attachmentItem.mimeType === "image/png"){
+                if(attachmentItem.mimeType === "image/png"||attachmentItem.mimeType === "image/jpeg"){
                   result = (
                     <TouchableOpacity key={attachmentItem.id} style={{paddingRight: 5, paddingTop: 5}} onPress={() => {
                       this.refs.imageGallery.openGallery(index)
@@ -448,7 +448,6 @@ export default class Cell extends PureComponent {
           </View>
           }
         </View>
-
       </Modal>
     </View>
   }
@@ -456,7 +455,6 @@ export default class Cell extends PureComponent {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: '#fafafa',
     flexDirection: 'row',
     padding: 10,

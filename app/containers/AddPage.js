@@ -1,10 +1,11 @@
 /* eslint-disable object-shorthand,no-restricted-syntax,no-useless-return */
 import React, {Component} from 'react'
-import {StyleSheet, View, StatusBar, Image, TouchableOpacity, Text, ScrollView, TextInput} from 'react-native'
+import {StyleSheet, View, StatusBar, Image, TouchableOpacity, Text, ScrollView, TextInput, Platform} from 'react-native'
 import {connect} from 'react-redux'
 import {List, ImagePicker, Picker} from 'antd-mobile-rn'
 import Toast from 'react-native-root-toast'
 import {Loading} from "../components/NetworkLoading"
+import CallOnceInInterval from '../components/CallOnceInInterval'
 
 import {NavigationActions} from '../utils'
 
@@ -240,7 +241,7 @@ export default class AddPage extends Component {
   }
 
   goBack = () => {
-    this.props.dispatch(NavigationActions.back({routeName: 'Home',params:{updateHome:false,}}))
+    this.props.dispatch(NavigationActions.navigate({routeName: 'Home',params: { updateHome:false },}))
   }
 
   handleSubmit=()=>{
@@ -355,7 +356,7 @@ export default class AddPage extends Component {
           <View style={{flex: 2, alignItems: 'center', marginBottom: 10}}>
             <Text style={{fontSize: 18, color: '#000'}}>新建BUG</Text>
           </View>
-          <TouchableOpacity style={{flex: 2, alignItems: 'flex-end', margin: 10,}} onPress={()=>this.handleSubmit()}>
+          <TouchableOpacity style={{flex: 2, alignItems: 'flex-end', margin: 10,}} onPress={()=>CallOnceInInterval(()=>this.handleSubmit())}>
             <Image
               source={require('../images/submit.png')}
               style={{height: 25, width: 25}}
@@ -495,7 +496,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#eef3f5'
   },
   header_container: {
-    height: 70,
+    height: (Platform.OS === 'ios') ? 60 : 70,
     backgroundColor: '#fafafa',
     flexDirection: 'row',
     alignItems: "flex-end",

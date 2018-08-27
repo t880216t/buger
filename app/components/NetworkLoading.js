@@ -21,9 +21,7 @@ const Loading = {
 
   hidden: ()=> {
     if (sibling instanceof RootSiblings) {
-      setTimeout(() => {
-        sibling.destroy()
-      }, 500)
+      sibling.destroy()
     }
   }
 
