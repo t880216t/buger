@@ -1,26 +1,7 @@
-# react-native-dva-starter
+## 功能描述
 
-A React Native starter powered by [dva](https://github.com/dvajs/dva) and [react-navigation](https://github.com/react-community/react-navigation)
+这是一个基于React Native开发的简易版Jira Bug管理APP。本人是测试，故而应用主要服务于测试过程中的，Bug新建，状态管理，回归备注，附件查看等测试流程。一改了之前常规管理应用列表到详情设计，新版本采用更为直观的瀑布流式设计，使我们像刷朋友圈似的刷Bug单。结合PC上的收藏过滤器，可以让我们更准确的获取需要的信息列表。
 
-## Start
+## 开发环境：
 
-```bash
-npm install dva-native-cli -g
-dvanative git app
-cd app
-react-native run-ios # or react-native run-android
-```
-
-Great thanks to @xuan45 for his cli tool [dva-native-cli](https://github.com/xuan45/dva-native-cli), check that project for more information.
-
-## Advance
-
-The builtin router of **dva** (not **react-router v4**), doesn't support React Native, we have to integrate other router components, such as **Navigator**, **ExperimentalNavigation**, **react-native-router-flux** and **react-navigation**. Since the former two will be depreciated in flavor of **react-navigation**, which is also be recommended by official, so I choose it to be the navigator.
-
-<del>In this starter, I provide a router model to control the default action flow of **react-navigation** to workaround a known [issue](https://github.com/react-community/react-navigation/issues/271). If you don't need this, the integration will be much simpler, you can simply remove the router model and pass **routerReducer** to **extraReducer** of dva `extraReducers: { router: routerReducer }`. Read [Redux Integration](https://reactnavigation.org/docs/guides/redux) and [dva's API](https://github.com/dvajs/dva/blob/master/docs/API.md) for more information.</del>
-
-Also there is another workaround for a missing feature https://github.com/react-community/react-navigation/issues/232, so I use two **StackNavigators** to contain the screens with different transition animations, you can create you own transition animations via **transitionConfig**, see https://github.com/react-community/react-navigation/pull/99
-
-## LICENSE
-
-MIT
+本应用基于react-native 0.55.4开发，采用了dva-core 1.3.0作为数据流管理框架，部分控件来自antd-mobile-rn 2.2.1组件库，使用react-navigation 2.5.1导航框架
