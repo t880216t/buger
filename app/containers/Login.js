@@ -326,6 +326,7 @@ class Login extends Component {
                       }}
                     />
                   </View>
+                  }
                 </View>
               )}
               <TouchableOpacity
