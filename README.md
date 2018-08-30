@@ -31,8 +31,8 @@
 │     ├── request.js            // 封装的fetch请求
 │     ├── storage.js            // 本地存储封装
 │     └── index.js              // 工具封装集合
-│   ├── router.js               // 生产环境
-│   └── index.js                // 测试环境
+│   ├── router.js               // 路由配置
+│   └── index.js                // 注册model
 ├── ios                         // 苹果原生文件
 ├── index.js                    // 入口文件
 ├── app.json                    // 应用名配置
