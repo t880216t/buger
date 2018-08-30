@@ -35,7 +35,7 @@ class Login extends Component {
     loginError: false,
     needCaptcha: false,
     timestamp: '',
-    domain: 'http://jira.vemic.com',
+    domain: 'http://jira.xxxx.com',
   }
 
   componentDidMount() {
@@ -315,13 +315,14 @@ class Login extends Component {
                       }}
                     />
                   </View>
+                  {this.state.domain&&
                   <View style={styles.captcha_image}>
                     <Image
                       style={{ height: 40, width: 120, resizeMode: 'contain' }}
                       source={{
-                        uri: `http://jira.vemic.com/captcha?__r=${
+                        uri: `${this.state.domain}/captcha?__r=${
                           this.state.timestamp
-                        }`,
+                          }`,
                       }}
                     />
                   </View>
