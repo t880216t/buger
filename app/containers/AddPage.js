@@ -631,7 +631,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#eef3f5',
   },
   header_container: {
-    height: Platform.OS === 'ios' ? 60 : 70,
+    height: Platform.OS === 'android' && Platform.Version > 19? 70 : 60,
     backgroundColor: '#fafafa',
     flexDirection: 'row',
     alignItems: 'flex-end',
