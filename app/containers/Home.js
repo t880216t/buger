@@ -384,9 +384,7 @@ export default class Header extends Component {
   }
 
   dropdownAdjustFrame = style => {
-    if (Platform.OS === 'ios') {
-      style.top += 20
-    } else if(Platform.OS === 'android' && Platform.Version > 19) {
+    if(Platform.OS === 'android' && Platform.Version > 19) {
       style.top -= 5
     }else {
       style.top += 20
