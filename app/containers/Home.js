@@ -386,8 +386,10 @@ export default class Header extends Component {
   dropdownAdjustFrame = style => {
     if (Platform.OS === 'ios') {
       style.top += 20
-    } else {
+    } else if(Platform.OS === 'android' && Platform.Version > 19) {
       style.top -= 5
+    }else {
+      style.top += 20
     }
     style.left = 0
     return style
@@ -780,7 +782,7 @@ const styles = StyleSheet.create({
   },
   header_container: {
     backgroundColor: 'rgb(63, 81, 181)',
-    height: Platform.OS === 'ios' ? 70 : 90,
+    height: Platform.OS === 'android' && Platform.Version > 19? 90 : 70,
     flexDirection: 'row',
     alignItems: 'flex-end',
     width: ScreenWidth,
